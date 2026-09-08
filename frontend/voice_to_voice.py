@@ -4,26 +4,15 @@ import streamlit.components.v1 as components
 
 def voice_to_voice():
 
-    # =====================================================
-    # PAGE TITLE
-    # =====================================================
-
     st.markdown(
-        """
-<h1 class="speak-title">Speak</h1>
-""",
+        '<h1 class="speak-title">Speak</h1>',
         unsafe_allow_html=True,
     )
-
-    # =====================================================
-    # MICROPHONE + CONVERSION UI
-    # =====================================================
 
     components.html(
         """
 <!DOCTYPE html>
 <html>
-
 <head>
 
 <style>
@@ -34,13 +23,11 @@ def voice_to_voice():
 
 html,
 body {
-
     margin: 0;
     padding: 0;
-
     background: transparent;
-
     font-family: Arial, sans-serif;
+    overflow: hidden;
 }
 
 
@@ -49,31 +36,24 @@ body {
    ===================================================== */
 
 .voice-container {
-
     width: 100%;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
 
-    padding-top: 5px;
-
-    padding-bottom: 25px;
+    margin: 0;
+    padding: 0;
 }
 
 
 /* =====================================================
-   ONE INSTRUCTION
+   INSTRUCTION
    ===================================================== */
 
 .instruction {
-
-    margin: 0 0 25px 0;
+    margin: 0 0 20px 0;
 
     font-size: 15px;
-
     color: #766960;
 
     text-align: center;
@@ -85,14 +65,12 @@ body {
    ===================================================== */
 
 .microphone-button {
-
     width: 190px;
     height: 190px;
 
     padding: 0;
 
     border-radius: 50%;
-
     border: 2px solid #f1d2ba;
 
     background:
@@ -104,9 +82,7 @@ body {
         );
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     cursor: pointer;
@@ -127,16 +103,13 @@ body {
    ===================================================== */
 
 .microphone-icon {
-
     width: 110px;
     height: 110px;
 
     border-radius: 50%;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     background:
@@ -159,7 +132,6 @@ body {
    ===================================================== */
 
 .microphone-button.recording {
-
     animation: pulse 1.4s infinite;
 
     box-shadow:
@@ -170,7 +142,6 @@ body {
 
 
 .microphone-button.recording .microphone-icon {
-
     background:
         linear-gradient(
             135deg,
@@ -182,7 +153,8 @@ body {
 
 @keyframes pulse {
 
-    0% {
+    0%,
+    100% {
         transform: scale(1);
     }
 
@@ -190,9 +162,6 @@ body {
         transform: scale(1.03);
     }
 
-    100% {
-        transform: scale(1);
-    }
 }
 
 
@@ -201,8 +170,7 @@ body {
    ===================================================== */
 
 .status {
-
-    margin-top: 25px;
+    margin-top: 18px;
 
     min-height: 20px;
 
@@ -215,9 +183,7 @@ body {
 
 
 .status.recording {
-
     color: #c75f42;
-
     font-weight: 700;
 }
 
@@ -226,34 +192,31 @@ body {
    AUDIO PLAYER
    ===================================================== */
 
-audio {
+#audioPlayer {
+    width: 440px;
+    max-width: calc(100% - 30px);
 
-    width: 100%;
+    height: 48px;
 
-    max-width: 600px;
-
-    margin-top: 20px;
+    margin-top: 16px;
 
     border-radius: 12px;
 }
 
 
 /* =====================================================
-   CONVERSION AREA
+   CONVERT AREA
    ===================================================== */
 
 .convert-area {
+    width: 440px;
+    max-width: calc(100% - 30px);
 
-    width: 100%;
-
-    max-width: 560px;
-
-    margin-top: 28px;
+    margin-top: 10px;
 
     display: none;
 
     flex-direction: column;
-
     align-items: center;
 }
 
@@ -263,13 +226,11 @@ audio {
    ===================================================== */
 
 .convert-row {
-
     width: 100%;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     gap: 12px;
@@ -281,12 +242,10 @@ audio {
    ===================================================== */
 
 .language-select {
+    width: 235px;
+    height: 48px;
 
-    height: 50px;
-
-    min-width: 210px;
-
-    padding: 0 16px;
+    padding: 0 14px;
 
     border-radius: 14px;
 
@@ -312,10 +271,10 @@ audio {
    ===================================================== */
 
 .convert-button {
+    width: 190px;
+    height: 48px;
 
-    height: 50px;
-
-    padding: 0 28px;
+    padding: 0;
 
     border: none;
 
@@ -347,7 +306,6 @@ audio {
 
 
 .convert-button:hover {
-
     transform: translateY(-1px);
 
     box-shadow:
@@ -356,7 +314,6 @@ audio {
 
 
 .convert-button:active {
-
     transform: scale(0.98);
 }
 
@@ -366,10 +323,186 @@ audio {
    ===================================================== */
 
 .convert-status {
+    margin-top: 8px;
+
+    font-size: 13px;
+
+    color: #766960;
+
+    text-align: center;
+}
+
+
+/* =====================================================
+   UPLOAD AREA
+   ===================================================== */
+
+.upload-area {
+    width: 440px;
+    max-width: calc(100% - 30px);
 
     margin-top: 14px;
 
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+
+/* =====================================================
+   OR DIVIDER
+   ===================================================== */
+
+.or-divider {
+    width: 100%;
+
+    height: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: #9a918a;
+
     font-size: 13px;
+}
+
+
+.or-divider::before,
+.or-divider::after {
+    content: "";
+
+    height: 1px;
+
+    background: #ddd4ce;
+
+    flex: 1;
+}
+
+
+/* =====================================================
+   UPLOAD BUTTON
+   ===================================================== */
+
+.upload-label {
+    width: 380px;
+    height: 72px;
+
+    margin-top: 10px;
+
+    padding: 0 20px;
+
+    border-radius: 15px;
+
+    background: #e8f2ff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+
+    box-shadow:
+        0 6px 20px rgba(100, 130, 160, 0.07);
+}
+
+
+.upload-label:hover {
+    transform: translateY(-1px);
+
+    background: #e1eeff;
+}
+
+
+/* =====================================================
+   UPLOAD CLOUD ICON
+   ===================================================== */
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+.upload-icon svg {
+    width: 48px;
+    height: 48px;
+
+    display: block;
+}
+
+
+/* =====================================================
+   UPLOAD TEXT
+   ===================================================== */
+
+.upload-text {
+    text-align: left;
+}
+
+
+.upload-title {
+    font-size: 16px;
+
+    line-height: 19px;
+
+    font-weight: 700;
+
+    color: #20242a;
+
+    margin: 0 0 3px 0;
+}
+
+
+.upload-subtitle {
+    font-size: 12px;
+
+    line-height: 15px;
+
+    color: #68717c;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   HIDDEN FILE INPUT
+   ===================================================== */
+
+#fileInput {
+    display: none;
+}
+
+
+/* =====================================================
+   UPLOAD STATUS
+   ===================================================== */
+
+.upload-status {
+    margin-top: 5px;
+
+    min-height: 14px;
+
+    font-size: 12px;
 
     color: #766960;
 
@@ -384,14 +517,12 @@ audio {
 @media (max-width: 700px) {
 
     .microphone-button {
-
         width: 155px;
         height: 155px;
     }
 
 
     .microphone-icon {
-
         width: 90px;
         height: 90px;
 
@@ -400,25 +531,25 @@ audio {
 
 
     .convert-row {
-
         flex-direction: column;
-
-        width: 100%;
     }
 
 
-    .language-select {
-
-        width: 100%;
-
-        min-width: 0;
-    }
-
-
+    .language-select,
     .convert-button {
-
         width: 100%;
     }
+
+
+    .upload-label {
+        width: 100%;
+    }
+
+
+    .upload-subtitle {
+        white-space: normal;
+    }
+
 }
 
 </style>
@@ -431,16 +562,14 @@ audio {
 <div class="voice-container">
 
 
-    <!-- ONE SIMPLE INSTRUCTION -->
+    <!-- =================================================
+         MAIN SPEAK SECTION
+         ================================================= -->
 
     <div class="instruction">
         Tap the microphone and speak
     </div>
 
-
-    <!-- =================================================
-         MICROPHONE
-         ================================================= -->
 
     <button
         id="microphoneButton"
@@ -456,10 +585,6 @@ audio {
     </button>
 
 
-    <!-- =================================================
-         RECORDING STATUS
-         ================================================= -->
-
     <div
         id="status"
         class="status"
@@ -469,18 +594,18 @@ audio {
 
 
     <!-- =================================================
-         AUDIO
+         AUDIO PLAYER
          ================================================= -->
 
     <audio
         id="audioPlayer"
         controls
-        style="display: none;"
+        style="display:none;"
     ></audio>
 
 
     <!-- =================================================
-         CONVERT
+         CONVERT SECTION
          ================================================= -->
 
     <div
@@ -531,6 +656,87 @@ audio {
         ></div>
 
     </div>
+
+
+    <!-- =================================================
+         UPLOAD AUDIO
+         ================================================= -->
+
+    <div class="upload-area">
+
+
+        <div class="or-divider">
+            <span>OR</span>
+        </div>
+
+
+        <label
+            class="upload-label"
+            for="fileInput"
+        >
+
+
+            <div class="upload-icon">
+
+                <svg
+                    viewBox="0 0 64 64"
+                    aria-hidden="true"
+                >
+
+                    <!-- Cloud -->
+                    <path
+                        d="M20 49h27c7 0 12-5 12-12s-5-12-12-12h-1C44 17 37 12 30 12c-8 0-14 5-16 12C7 25 3 30 3 37c0 7 6 12 13 12h4z"
+                        fill="#4f9df8"
+                    />
+
+
+                    <!-- Upload arrow -->
+                    <path
+                        d="M32 45V25M25 32l7-7 7 7"
+                        fill="none"
+                        stroke="#ffffff"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+
+                </svg>
+
+            </div>
+
+
+            <div class="upload-text">
+
+                <div class="upload-title">
+                    Upload Audio
+                </div>
+
+
+                <div class="upload-subtitle">
+                    Choose an audio file from your device
+                </div>
+
+            </div>
+
+
+        </label>
+
+
+        <input
+            id="fileInput"
+            type="file"
+            accept="audio/*,.wav,.mp3,.m4a,.webm,.ogg"
+        />
+
+
+        <div
+            id="uploadStatus"
+            class="upload-status"
+        ></div>
+
+
+    </div>
+
 
 </div>
 
@@ -596,6 +802,55 @@ const convertStatus =
     );
 
 
+const fileInput =
+    document.getElementById(
+        "fileInput"
+    );
+
+
+const uploadStatus =
+    document.getElementById(
+        "uploadStatus"
+    );
+
+
+/* =====================================================
+   SHOW AUDIO
+   ===================================================== */
+
+function showAudio(
+    fileOrBlob,
+    message
+) {
+
+    const audioUrl =
+        URL.createObjectURL(
+            fileOrBlob
+        );
+
+
+    audioPlayer.src =
+        audioUrl;
+
+
+    audioPlayer.style.display =
+        "block";
+
+
+    status.textContent =
+        message;
+
+
+    status.classList.remove(
+        "recording"
+    );
+
+
+    convertArea.style.display =
+        "flex";
+}
+
+
 /* =====================================================
    START RECORDING
    ===================================================== */
@@ -614,18 +869,24 @@ async function startRecording() {
 
 
         mediaRecorder =
-            new MediaRecorder(stream);
+            new MediaRecorder(
+                stream
+            );
 
 
         mediaRecorder.ondataavailable =
             function(event) {
 
-                if (event.data.size > 0) {
+                if (
+                    event.data.size > 0
+                ) {
 
                     audioChunks.push(
                         event.data
                     );
+
                 }
+
             };
 
 
@@ -641,26 +902,9 @@ async function startRecording() {
                     );
 
 
-                const audioUrl =
-                    URL.createObjectURL(
-                        audioBlob
-                    );
-
-
-                audioPlayer.src =
-                    audioUrl;
-
-
-                audioPlayer.style.display =
-                    "block";
-
-
-                status.textContent =
-                    "Recording finished";
-
-
-                status.classList.remove(
-                    "recording"
+                showAudio(
+                    audioBlob,
+                    "Recording finished"
                 );
 
 
@@ -675,10 +919,6 @@ async function startRecording() {
                 );
 
 
-                convertArea.style.display =
-                    "flex";
-
-
                 if (stream) {
 
                     stream
@@ -687,10 +927,12 @@ async function startRecording() {
                             track =>
                                 track.stop()
                         );
+
                 }
 
 
                 isRecording = false;
+
             };
 
 
@@ -705,6 +947,10 @@ async function startRecording() {
 
 
         convertStatus.textContent =
+            "";
+
+
+        uploadStatus.textContent =
             "";
 
 
@@ -735,7 +981,9 @@ async function startRecording() {
             "Please allow microphone access";
 
         console.error(error);
+
     }
+
 }
 
 
@@ -751,7 +999,9 @@ function stopRecording() {
     ) {
 
         mediaRecorder.stop();
+
     }
+
 }
 
 
@@ -772,13 +1022,64 @@ microphoneButton.addEventListener(
         else {
 
             stopRecording();
+
         }
+
     }
 );
 
 
 /* =====================================================
-   CONVERT CLICK
+   UPLOAD AUDIO
+   ===================================================== */
+
+fileInput.addEventListener(
+    "change",
+    function() {
+
+        const file =
+            this.files[0];
+
+
+        if (!file) {
+            return;
+        }
+
+
+        if (
+            !file.type.startsWith(
+                "audio/"
+            )
+        ) {
+
+            uploadStatus.textContent =
+                "Please choose an audio file";
+
+            this.value = "";
+
+            return;
+        }
+
+
+        showAudio(
+            file,
+            "Audio uploaded"
+        );
+
+
+        uploadStatus.textContent =
+            file.name;
+
+
+        convertStatus.textContent =
+            "";
+
+    }
+);
+
+
+/* =====================================================
+   CONVERT
    ===================================================== */
 
 convertButton.addEventListener(
@@ -796,8 +1097,8 @@ convertButton.addEventListener(
 
 
         /*
-         * Backend voice translation
-         * will be connected here.
+         * Your backend conversion
+         * connection can remain here.
          */
 
     }
@@ -806,7 +1107,6 @@ convertButton.addEventListener(
 </script>
 
 </body>
-
 </html>
 """,
         height=560,
