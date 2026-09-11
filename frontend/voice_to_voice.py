@@ -127,6 +127,98 @@ body {
 }
 
 
+
+/* =====================================================
+   MICROPHONE HELPER CALLOUT
+   ===================================================== */
+
+.microphone-wrap {
+    position: relative;
+    width: 440px;
+    max-width: calc(100% - 30px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.microphone-callout {
+    position: absolute;
+    right: calc(50% + 125px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 125px;
+    padding: 9px 12px;
+    border-radius: 14px;
+    background: #fff0e6;
+    color: #a9472b;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(190, 122, 83, 0.10);
+    pointer-events: none;
+}
+
+.microphone-callout svg {
+    position: absolute;
+    width: 58px;
+    height: 42px;
+    right: -48px;
+    top: 50%;
+    transform: translateY(-15%);
+    overflow: visible;
+}
+
+.microphone-callout path {
+    fill: none;
+    stroke: #d96f50;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.microphone-callout.hidden {
+    display: none;
+}
+
+.status.ready {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    margin-top: 18px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: #e6f7e9;
+    color: #2d7a3f;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.status.ready::before {
+    content: "✓";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-right: 7px;
+    border-radius: 50%;
+    background: #3ba655;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.language-label {
+    width: 100%;
+    margin-bottom: 7px;
+    color: #302923;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: left;
+}
+
 /* =====================================================
    RECORDING STATE
    ===================================================== */
@@ -498,9 +590,10 @@ body {
    ===================================================== */
 
 .upload-status {
-    margin-top: 5px;
+    margin-top: 6px;
 
-    min-height: 14px;
+    min-height: 18px;
+    padding-bottom: 2px;
 
     font-size: 12px;
 
@@ -515,6 +608,24 @@ body {
    ===================================================== */
 
 @media (max-width: 700px) {
+
+    .microphone-wrap {
+        width: 100%;
+        padding-top: 52px;
+    }
+
+    .microphone-callout {
+        right: auto;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        width: 150px;
+        padding: 7px 10px;
+    }
+
+    .microphone-callout svg {
+        display: none;
+    }
 
     .microphone-button {
         width: 155px;
@@ -571,25 +682,42 @@ body {
     </div>
 
 
-    <button
-        id="microphoneButton"
-        class="microphone-button"
-        type="button"
-        aria-label="Start recording"
-    >
+    <div class="microphone-wrap">
 
-        <div class="microphone-icon">
-            🎙️
+        <div
+            id="microphoneCallout"
+            class="microphone-callout"
+        >
+            Tap here<br>
+            and speak
+
+            <svg viewBox="0 0 70 50" aria-hidden="true">
+                <path d="M3 10 C20 10, 29 15, 43 27 C50 33, 56 34, 65 34" />
+                <path d="M54 25 L65 34 L53 39" />
+            </svg>
         </div>
 
-    </button>
+        <button
+            id="microphoneButton"
+            class="microphone-button"
+            type="button"
+            aria-label="Start recording"
+        >
+
+            <div class="microphone-icon">
+                🎙️
+            </div>
+
+        </button>
+
+    </div>
 
 
     <div
         id="status"
         class="status"
     >
-        Tap the microphone to start
+        Tap to start speaking
     </div>
 
 
@@ -613,6 +741,10 @@ body {
         class="convert-area"
     >
 
+        <div class="language-label">
+            Choose language
+        </div>
+
         <div class="convert-row">
 
             <select
@@ -621,19 +753,19 @@ body {
             >
 
                 <option value="Odia">
-                    Convert to Odia
+                    Odia
                 </option>
 
                 <option value="English">
-                    Convert to English
+                    English
                 </option>
 
                 <option value="Hindi">
-                    Convert to Hindi
+                    Hindi
                 </option>
 
                 <option value="Bengali">
-                    Convert to Bengali
+                    Bengali
                 </option>
 
             </select>
@@ -765,6 +897,11 @@ const microphoneButton =
         "microphoneButton"
     );
 
+const microphoneCallout =
+    document.getElementById(
+        "microphoneCallout"
+    );
+
 
 const status =
     document.getElementById(
@@ -838,11 +975,19 @@ function showAudio(
 
 
     status.textContent =
-        message;
+        "Your voice is ready";
 
 
     status.classList.remove(
         "recording"
+    );
+
+    status.classList.add(
+        "ready"
+    );
+
+    microphoneCallout.classList.add(
+        "hidden"
     );
 
 
@@ -954,6 +1099,14 @@ async function startRecording() {
             "";
 
 
+        status.classList.remove(
+            "ready"
+        );
+
+        microphoneCallout.classList.add(
+            "hidden"
+        );
+
         microphoneButton.classList.add(
             "recording"
         );
@@ -979,6 +1132,14 @@ async function startRecording() {
 
         status.textContent =
             "Please allow microphone access";
+
+        status.classList.remove(
+            "ready"
+        );
+
+        microphoneCallout.classList.remove(
+            "hidden"
+        );
 
         console.error(error);
 
@@ -1063,7 +1224,7 @@ fileInput.addEventListener(
 
         showAudio(
             file,
-            "Audio uploaded"
+            "Your voice is ready"
         );
 
 
@@ -1091,9 +1252,7 @@ convertButton.addEventListener(
 
 
         convertStatus.textContent =
-            "Converting your voice to " +
-            language +
-            "...";
+            "Please wait...";
 
 
         /*
@@ -1109,6 +1268,6 @@ convertButton.addEventListener(
 </body>
 </html>
 """,
-        height=560,
+        height=650,
         scrolling=False,
     )
