@@ -339,7 +339,7 @@ with st.container(key="voice_header"):
 
     with center:
 
-        st.markdown('<div class="brand">VOICE AI</div>', unsafe_allow_html=True)
+        st.markdown('<div class="brand"></div>', unsafe_allow_html=True)
 
     with right:
 
