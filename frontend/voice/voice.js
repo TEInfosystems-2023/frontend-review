@@ -434,18 +434,7 @@ function waitFor(fn, timeout) {
     });
 }
 /* Settings / About: press the existing app menu buttons (app.py stays unchanged). */
-async function navigateApp(target) {
-    if (isActive()) endConversation();
-    try {
-        const doc = window.parent.document;
-        const open = doc.querySelector(".st-key-menu_button button");
-        if (!open) throw new Error("no menu");
-        open.click();
-        const btn = await waitFor(() => doc.querySelector(".st-key-side_" + target + " button"), 4000);
-        if (!btn) throw new Error("no link");
-        btn.click();
-    } catch (_) { setNotice("Please open this page from the app menu.", true); }
-}
+
 function goHome() {
     if (isActive()) endConversation();
     resetTranscript(); setNotice(""); setState(S.IDLE);
@@ -459,9 +448,10 @@ scrim.addEventListener("click", closePanels);
 document.addEventListener("keydown", e => { if (e.key === "Escape") closePanels(); });
 document.querySelectorAll(".nav").forEach(b => b.addEventListener("click", () => {
     const t = b.dataset.nav;
+
     closePanels();
+
     if (t === "home") goHome();
-    else if (t === "settings" || t === "about") navigateApp(t);
 }));
 startBtn.addEventListener("click", startConversation);
 endBtn.addEventListener("click", endConversation);
